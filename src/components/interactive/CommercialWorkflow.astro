@@ -1,0 +1,535 @@
+---
+import { commercialWorkflow } from '../../data/commercialWorkflow';
+
+const initial = commercialWorkflow[0];
+const total = commercialWorkflow.length;
+---
+
+<section
+  class='commercial-workflow'
+  id='flujo-comercial'
+  aria-labelledby='commercial-title'
+  data-commercial-workflow
+>
+  <div class='shell'>
+    <!-- EDITORIAL HEADER -->
+
+    <div class='workflow-header' data-reveal>
+      <div class='workflow-eyebrow eyebrow'>
+        <span>02.B / Automatización comercial</span>
+
+        <span class='quiet'> Del primer contacto a la conversión </span>
+      </div>
+
+      <div class='workflow-intro'>
+        <h2 class='section-display' id='commercial-title'>
+          Una operación.<br />
+          <span class='low'>Todo conectado.</span>
+        </h2>
+
+        <p>
+          Una oportunidad comercial atraviesa diferentes procesos, herramientas
+          y equipos. Explora cómo podemos conectar cada etapa, automatizar
+          tareas y mantener la información disponible durante todo el recorrido.
+        </p>
+      </div>
+    </div>
+
+    <!-- WORKFLOW NAVIGATION -->
+
+    <ol
+      class='workflow-steps'
+      aria-label='Etapas del proceso comercial'
+      data-reveal
+    >
+      {
+        commercialWorkflow.map((step, index) => (
+          <li>
+            <button
+              class='workflow-step'
+              type='button'
+              data-workflow-step={step.id}
+              aria-pressed={index === 0}
+            >
+              <span class='step-number'>
+                {String(index + 1).padStart(2, '0')}
+              </span>
+
+              <span class='step-label'>{step.label}</span>
+            </button>
+          </li>
+        ))
+      }
+    </ol>
+
+    <!-- WORKFLOW CONTROLS -->
+
+    <div class='workflow-controls' data-reveal>
+      <button
+        class='workflow-next'
+        type='button'
+        data-workflow-next
+        aria-label='Avanzar a la siguiente etapa del proceso comercial'
+      >
+        <span class='workflow-next-icon' aria-hidden='true'> → </span>
+
+        <span class='workflow-next-label'> Siguiente etapa </span>
+      </button>
+    </div>
+
+    <!-- INTERACTIVE DETAIL -->
+
+    <div class='workflow-detail' data-reveal>
+      <!-- LEFT PANEL -->
+
+      <div class='workflow-feature'>
+        <div class='feature-meta eyebrow'>
+          <span>Etapa del proceso</span>
+
+          <span data-workflow-counter aria-live='polite'>
+            01 / {String(total).padStart(2, '0')}
+          </span>
+        </div>
+
+        <div class='feature-content'>
+          <h3 data-workflow-headline>
+            {initial.headline}
+          </h3>
+
+          <p data-workflow-context>
+            {initial.context}
+          </p>
+        </div>
+
+        <div class='feature-outcome'>
+          <span class='eyebrow'> Resultado esperado </span>
+
+          <strong data-workflow-outcome>
+            {initial.outcome}
+          </strong>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL -->
+
+      <div class='workflow-execution'>
+        <div class='execution-block'>
+          <span class='execution-label eyebrow'>
+            01 / Automatización posible
+          </span>
+
+          <p data-workflow-automation>
+            {initial.automation}
+          </p>
+        </div>
+
+        <div class='execution-block'>
+          <span class='execution-label eyebrow'>
+            02 / Intervención humana
+          </span>
+
+          <p data-workflow-human>
+            {initial.human}
+          </p>
+        </div>
+
+        <div class='execution-block technology-block'>
+          <span class='execution-label eyebrow'>
+            03 / Tecnologías posibles
+          </span>
+
+          <p data-workflow-technology>
+            {initial.technology}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- DISCLAIMER -->
+
+    <p class='workflow-disclaimer'>
+      Representación conceptual de un proceso comercial. Cada implementación se
+      diseña según las necesidades, herramientas y reglas de operación de cada
+      organización.
+    </p>
+  </div>
+</section>
+
+<script>
+  import { initCommercialWorkflows } from '../../scripts/commercialWorkflow';
+
+  initCommercialWorkflows();
+</script>
+
+<style>
+  .commercial-workflow {
+    background: var(--paper);
+    color: var(--ink);
+
+    padding-top: clamp(95px, 11vw, 160px);
+    padding-bottom: clamp(100px, 11vw, 160px);
+
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* HEADER */
+
+  .workflow-eyebrow {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+
+    padding-top: 22px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .workflow-intro {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 8%;
+
+    align-items: end;
+    margin: 90px 0 100px;
+  }
+
+  .workflow-intro .section-display {
+    font-size: clamp(60px, 7.2vw, 110px);
+  }
+
+  .workflow-intro p {
+    max-width: 430px;
+    margin: 0 0 8px auto;
+
+    font-size: clamp(17px, 1.5vw, 21px);
+    line-height: 1.55;
+    font-weight: 300;
+    letter-spacing: -0.025em;
+  }
+
+  /* WORKFLOW NAVIGATION */
+
+  .workflow-steps {
+    display: flex;
+
+    padding: 0;
+    margin: 0 0 14px;
+
+    list-style: none;
+  }
+
+  .workflow-steps li {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .workflow-step {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    width: 100%;
+    min-height: 105px;
+
+    padding: 17px 12px 20px;
+
+    border: 0;
+    border-top: 2px solid var(--rule);
+
+    background: transparent;
+    color: var(--ink);
+
+    text-align: left;
+    cursor: pointer;
+
+    transition:
+      background 0.3s,
+      border-color 0.3s;
+  }
+
+  .workflow-step:hover {
+    background: var(--paper-2);
+  }
+
+  .workflow-step[aria-pressed='true'] {
+    border-top-color: var(--ink);
+    background: var(--accent);
+  }
+
+  .step-number {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .workflow-step[aria-pressed='true'] .step-number {
+    color: var(--ink);
+  }
+
+  .step-label {
+    font-size: clamp(12px, 1vw, 15px);
+    letter-spacing: -0.025em;
+  }
+  /* WORKFLOW CONTROLS */
+
+  .workflow-controls {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    margin: 0 0 32px;
+  }
+
+  .workflow-next {
+    display: inline-flex;
+    align-items: center;
+    gap: 13px;
+
+    padding: 0;
+    border: 0;
+
+    background: transparent;
+    color: var(--ink);
+
+    cursor: pointer;
+  }
+
+  .workflow-next-icon {
+    width: 38px;
+    height: 38px;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid var(--ink);
+    border-radius: 50%;
+
+    font-size: 20px;
+    font-weight: 300;
+
+    transition:
+      background 0.3s var(--ease),
+      border-color 0.3s var(--ease),
+      transform 0.3s var(--ease);
+  }
+
+  .workflow-next-label {
+    font-size: 11px;
+    font-weight: 400;
+
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+  }
+
+  /* INTERACTION */
+
+  .workflow-next:hover .workflow-next-icon {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: translateX(4px);
+  }
+
+  /* DETAIL GRID */
+
+  .workflow-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    min-height: 430px;
+  }
+
+  /* LEFT PANEL */
+
+  .workflow-feature {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    gap: 65px;
+
+    padding: clamp(30px, 4vw, 60px);
+
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .feature-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+
+    color: #cececa;
+  }
+
+  .feature-content h3 {
+    max-width: 600px;
+    margin: 0 0 25px;
+
+    font-size: clamp(31px, 3vw, 48px);
+    font-weight: 300;
+    letter-spacing: -0.055em;
+    line-height: 1.15;
+  }
+
+  .feature-content p {
+    max-width: 490px;
+    margin: 0;
+
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.65;
+
+    color: #deded9;
+  }
+
+  .feature-outcome {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    padding-top: 23px;
+    border-top: 1px solid #747474;
+  }
+
+  .feature-outcome .eyebrow {
+    color: #cececa;
+  }
+
+  .feature-outcome strong {
+    max-width: 470px;
+
+    font-size: clamp(17px, 1.5vw, 22px);
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  /* RIGHT PANEL */
+
+  .workflow-execution {
+    display: flex;
+    flex-direction: column;
+
+    padding: clamp(30px, 4vw, 60px);
+
+    background: var(--paper-2);
+  }
+
+  .execution-block {
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+
+    border-bottom: 1px solid #d2d2cc;
+  }
+
+  .execution-block:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .execution-label {
+    color: var(--muted);
+  }
+
+  .execution-block p {
+    max-width: 510px;
+    margin: 18px 0 0;
+
+    font-size: clamp(16px, 1.3vw, 19px);
+    font-weight: 300;
+    line-height: 1.5;
+    letter-spacing: -0.025em;
+  }
+
+  /* FOOTNOTE */
+
+  .workflow-disclaimer {
+    max-width: 700px;
+    margin: 25px 0 0;
+
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* REVEAL SEQUENCE */
+
+  .workflow-header[data-reveal] {
+    transition-delay: 0s;
+  }
+
+  .workflow-steps[data-reveal] {
+    transition-delay: 0.1s;
+  }
+
+  .workflow-controls[data-reveal] {
+    transition-delay: 0.15s;
+  }
+
+  .workflow-detail[data-reveal] {
+    transition-delay: 0.2s;
+  }
+  /* RESPONSIVE */
+
+  @media (max-width: 1000px) {
+    .workflow-intro {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      margin: 70px 0;
+    }
+
+    .workflow-intro p {
+      margin-left: 0;
+    }
+  }
+
+  @media (max-width: 780px) {
+    .commercial-workflow {
+      padding-top: 90px;
+      padding-bottom: 95px;
+    }
+
+    .workflow-eyebrow .quiet {
+      display: none;
+    }
+
+    .workflow-steps {
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+      scroll-snap-type: x proximity;
+
+      padding-bottom: 10px;
+    }
+
+    .workflow-steps li {
+      flex: 0 0 155px;
+      scroll-snap-align: start;
+    }
+
+    .workflow-detail {
+      grid-template-columns: 1fr;
+    }
+
+    .workflow-feature {
+      gap: 50px;
+    }
+  }
+
+  @media (max-width: 450px) {
+    .workflow-intro .section-display {
+      font-size: clamp(49px, 11vw, 65px);
+    }
+
+    .workflow-feature,
+    .workflow-execution {
+      padding: 28px 24px;
+    }
+
+    .feature-meta {
+      font-size: 10px;
+    }
+
+    .feature-content h3 {
+      font-size: 34px;
+    }
+  }
+</style>

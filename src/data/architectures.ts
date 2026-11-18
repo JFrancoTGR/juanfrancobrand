@@ -10,38 +10,65 @@ export interface ArchitectureScenario {
 export const architectures: readonly ArchitectureScenario[] = [
   {
     id: 'captacion',
-    name: 'Captación',
-    label: 'Patrón / 01',
+    name: 'Automatización comercial',
+    label: 'Solución / 01',
     caption:
-      'Registrar el contexto de cada solicitud, normalizar su información y activar las siguientes acciones sin perder trazabilidad.',
+      'Centralizo prospectos de campañas publicitarias, sitios web y WhatsApp. Automatizo su registro, clasificación, asignación y primeros contactos, manteniendo la información disponible para dar continuidad al seguimiento comercial.',
     nodes: [
-      { eyebrow: 'Puntos de contacto', title: 'Web · Formulario · WhatsApp' },
-      { eyebrow: 'Capa de proceso', title: 'Validación / Eventos' },
-      { eyebrow: 'Seguimiento', title: 'CRM / Equipo comercial' },
+      {
+        eyebrow: 'Captación',
+        title: 'Meta · Google · Web',
+      },
+      {
+        eyebrow: 'Gestión comercial',
+        title: 'CRM · Reglas · Asignación',
+      },
+      {
+        eyebrow: 'Seguimiento',
+        title: 'WhatsApp · Asesores',
+      },
     ],
   },
   {
     id: 'sincronizacion',
-    name: 'Integración',
-    label: 'Patrón / 02',
+    name: 'Integración de sistemas',
+    label: 'Solución / 02',
     caption:
-      'Conectar sistemas diferentes manteniendo consistencia de datos, reglas de negocio y procesos de recuperación ante errores.',
+      'Conecto plataformas comerciales y administrativas para sincronizar información y estados. Implemento reglas de negocio, validaciones y mecanismos de recuperación que permiten mantener la operación coordinada.',
     nodes: [
-      { eyebrow: 'Aplicaciones', title: 'Sistema A' },
-      { eyebrow: 'Capa de conexión', title: 'API / Middleware' },
-      { eyebrow: 'Operación', title: 'Sistema B' },
+      {
+        eyebrow: 'Gestión comercial',
+        title: 'CRM',
+      },
+      {
+        eyebrow: 'Capa de integración',
+        title: 'API · Middleware',
+      },
+      {
+        eyebrow: 'Administración',
+        title: 'ERP · Sistemas internos',
+      },
     ],
   },
   {
     id: 'conversacion',
-    name: 'Comunicación',
-    label: 'Patrón / 03',
+    name: 'Atención automatizada',
+    label: 'Solución / 03',
     caption:
-      'Integrar conversaciones con procesos internos y permitir continuidad entre automatización y atención humana, sin depender de un proveedor único.',
+      'Integro conversaciones de WhatsApp con procesos comerciales. Automatizo mensajes, seguimientos y respuestas según eventos del CRM, permitiendo que la atención humana continúe cuando sea necesario.',
     nodes: [
-      { eyebrow: 'Interacción', title: 'WhatsApp Business API' },
-      { eyebrow: 'Orquestación', title: 'Reglas / Webhooks' },
-      { eyebrow: 'Continuidad', title: 'CRM / Atención humana' },
+      {
+        eyebrow: 'Comunicación',
+        title: 'WhatsApp Business API',
+      },
+      {
+        eyebrow: 'Automatización',
+        title: 'Eventos · Plantillas · Reglas',
+      },
+      {
+        eyebrow: 'Atención',
+        title: 'CRM · Asesor · Historial',
+      },
     ],
   },
 ];

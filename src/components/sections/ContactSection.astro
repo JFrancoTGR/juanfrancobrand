@@ -4,7 +4,7 @@ import ProfilePortrait from '../ui/ProfilePortrait.astro';
 ---
 
 <section class='contact shell' id='contacto' aria-labelledby='contact-title'>
-  <div class='contact-head eyebrow'>
+  <div class='contact-head eyebrow' data-reveal>
     <span>05 / Contacto</span><span class='quiet' style='text-align:right'
       >El siguiente proyecto empieza con una conversación.</span
     >
@@ -24,7 +24,7 @@ import ProfilePortrait from '../ui/ProfilePortrait.astro';
   </div>
   <div class='contact-actions' data-reveal>
     <a class='contact-button' href={`mailto:${site.email}`}
-      ><span>Iniciar conversación</span><span class='arrow'>↗</span></a
+      ><span>Analicemos tu proyecto</span><span class='arrow'>↗</span></a
     >
     {
       site.linkedIn ? (
@@ -152,7 +152,7 @@ import ProfilePortrait from '../ui/ProfilePortrait.astro';
     }
 
     .contact-portrait {
-      justify-self: end;
+      justify-self: center;
     }
   }
   @media (max-width: 450px) {

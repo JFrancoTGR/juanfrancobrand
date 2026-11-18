@@ -1,6 +1,7 @@
 ---
 import ChapterHeading from '../ui/ChapterHeading.astro';
-import { career } from '../../data/content';
+
+import { career, careerEvolution, consulting } from '../../data/content';
 ---
 
 <section
@@ -9,130 +10,292 @@ import { career } from '../../data/content';
   aria-labelledby='timeline-title'
 >
   <div class='shell'>
-    <ChapterHeading
-      number='04'
-      title='Trayectoria y formación'
-      subtitle='La perspectiva que aporta el recorrido'
-    />
-    <div class='timeline-grid'>
-      <div data-reveal>
+    <!-- EDITORIAL HEADING -->
+
+    <div class='journey-heading'>
+      <ChapterHeading
+        number='04'
+        title='Trayectoria'
+        subtitle='Evolución profesional / Experiencia'
+      />
+    </div>
+
+    <!-- PROFESSIONAL EVOLUTION -->
+
+    <div class='journey-grid'>
+      <!-- LEFT COLUMN -->
+
+      <div class='journey-intro' data-reveal>
         <h2 class='section-display' id='timeline-title'>
-          Diseño.<br /><span class='low'>Gestión.</span><br />Tecnología.
-        </h2><p class='timeline-overline'>
-          Una trayectoria entre comunicación visual, tecnología y operación. El
-          trabajo en el sector inmobiliario es una experiencia relevante, no el
-          límite de lo que puedo construir.
+          Del diseño<br />
+          <span class='low'>a los sistemas.</span>
+        </h2>
+
+        <p class='journey-lead'>
+          Una evolución profesional que conecta comunicación visual, desarrollo
+          de software y arquitectura tecnológica.
         </p>
       </div>
-      <div class='timeline-items' data-reveal>
+
+      <!-- RIGHT COLUMN -->
+
+      <ol
+        class='evolution-list'
+        aria-label='Etapas de evolución profesional'
+        data-reveal
+      >
         {
-          career.map((company, index) => (
-            <div class='timeline-item'>
-              <>
-                <span class='order'>{String(index + 1).padStart(2, '0')}</span>
-                <h3>{company}</h3>
-                <span class='tag' aria-hidden='true'>
-                  ↗
-                </span>
-              </>
-            </div>
+          careerEvolution.map((stage, index) => (
+            <li class='evolution-item'>
+              <span class='evolution-number'>
+                {String(index + 1).padStart(2, '0')}
+              </span>
+
+              <div class='evolution-content'>
+                <h3>{stage.title}</h3>
+
+                <p>{stage.description}</p>
+              </div>
+            </li>
           ))
         }
-      </div>
+      </ol>
     </div>
-    <div class='education-line' data-reveal>
-      <span class='eyebrow quiet'>Formación académica / 01</span><p>
-        <strong>Licenciatura en Diseño Gráfico</strong><br /><span class='quiet'
-          >Universidad Tecnológica de México · UNITEC</span>
-      </p>
+
+    <!-- PROFESSIONAL BACKGROUND -->
+
+    <div class='journey-meta' data-reveal>
+      <div class='meta-block'>
+        <h3 class='eyebrow quiet'>Experiencia profesional</h3>
+
+        <p class='career-organizations'>
+          {career.join(' · ')}
+        </p>
+
+        <div class='consulting-list'>
+          <h3 class='eyebrow quiet'>Consultoría independiente</h3>
+
+          {
+            consulting.map((project) => (
+              <p class='consulting-entry'>
+                <strong>{project.client}.</strong> {project.description}
+              </p>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class='meta-block'>
+        <h3 class='eyebrow quiet'>Formación académica</h3>
+
+        <p>
+          Licenciatura en Diseño Gráfico<br />
+          <span class='quiet'>
+            Universidad Tecnológica de México · UNITEC
+          </span>
+        </p>
+      </div>
     </div>
   </div>
 </section>
+
 <style>
+  /* SECTION */
+
   .timeline-section {
-    padding-top: 120px;
-    padding-bottom: 140px;
+    padding-top: clamp(80px, 8vw, 110px);
+    padding-bottom: clamp(85px, 9vw, 120px);
+
     background: #efefec;
   }
-  .timeline-grid {
+
+  .journey-heading :global(.chapter-top) {
+    margin-bottom: 65px;
+  }
+
+  /* MAIN GRID */
+
+  .journey-grid {
     display: grid;
-    grid-template-columns: 0.8fr 1.2fr;
-    gap: 10%;
-    margin-top: 85px;
+    grid-template-columns:
+      minmax(0, 0.9fr)
+      minmax(0, 1.1fr);
+
+    gap: clamp(50px, 8vw, 130px);
+
+    align-items: start;
   }
-  .timeline-overline {
-    font-size: 12px;
-    line-height: 1.65;
-    color: var(--muted);
-    max-width: 305px;
-    margin-top: 35px;
+
+  /* INTRODUCTION */
+
+  .journey-intro .section-display {
+    font-size: clamp(48px, 5.2vw, 78px);
+    line-height: 1.02;
+    letter-spacing: -0.08em;
   }
-  .timeline-items {
-    border-top: 1px solid #d4d4ce;
-  }
-  .timeline-item {
-    padding: 25px 0 27px;
-    border-bottom: 1px solid #d4d4ce;
-    display: grid;
-    grid-template-columns: 95px 1fr 25px;
-    gap: 20px;
-    align-items: center;
-  }
-  .timeline-item .order {
-    color: var(--muted);
-    font-size: 11px;
-  }
-  .timeline-item h3 {
-    font-weight: 400;
-    font-size: clamp(18px, 2.2vw, 29px);
-    letter-spacing: -0.055em;
-    margin: 0;
-  }
-  .timeline-item .tag {
-    text-align: right;
-    font-size: 21px;
+
+  .journey-lead {
+    max-width: 410px;
+
+    margin: 35px 0 0;
+
+    font-size: clamp(15px, 1.3vw, 18px);
     font-weight: 300;
-    transition: transform 0.25s;
+
+    line-height: 1.6;
+    letter-spacing: -0.025em;
+
+    color: #656565;
   }
-  .timeline-item:hover .tag {
-    transform: translate(4px, -4px);
-  }
-  .education-line {
+
+  /* EVOLUTION LIST */
+
+  .evolution-list {
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+
     border-top: 1px solid #d4d4ce;
+  }
+
+  .evolution-item {
+    display: grid;
+    grid-template-columns: 38px 1fr;
+
+    gap: 22px;
+
+    padding: 25px 0 28px;
+
+    border-bottom: 1px solid #d4d4ce;
+  }
+
+  .evolution-number {
+    padding-top: 5px;
+
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .evolution-content h3 {
+    margin: 0 0 13px;
+
+    font-size: clamp(19px, 1.7vw, 24px);
+    font-weight: 400;
+
+    letter-spacing: -0.045em;
+    line-height: 1.2;
+  }
+
+  .evolution-content p {
+    max-width: 530px;
+
+    margin: 0;
+
+    font-size: 14px;
+    font-weight: 300;
+
+    line-height: 1.65;
+
+    color: #656565;
+  }
+
+  /* SECONDARY INFORMATION */
+
+  .journey-meta {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+
+    gap: clamp(35px, 6vw, 90px);
+
     margin-top: 70px;
     padding-top: 26px;
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 20px;
-    align-items: baseline;
+
+    border-top: 1px solid #d4d4ce;
   }
-  .education-line p {
+
+  .meta-block h3 {
+    margin: 0 0 18px;
+  }
+
+  .meta-block p {
     margin: 0;
-    font-size: 15px;
-    line-height: 1.6;
+
+    font-size: 13px;
+    font-weight: 400;
+
+    line-height: 1.8;
   }
-  .education-line strong {
+
+  .career-organizations {
+    max-width: 600px;
+    color: #656565;
+  }
+  /* CONSULTING EXPERIENCE */
+
+  .consulting-list {
+    margin-top: 32px;
+  }
+
+  .consulting-list h3 {
+    margin-bottom: 14px;
+  }
+
+  .consulting-entry {
+    max-width: 580px;
+    color: #656565;
+  }
+
+  .consulting-entry strong {
+    color: var(--ink);
     font-weight: 400;
   }
+
+  /* RESPONSIVE */
+
   @media (max-width: 780px) {
     .timeline-section {
-      padding-top: 90px;
-      padding-bottom: 95px;
+      padding-top: 80px;
+      padding-bottom: 90px;
     }
-    .timeline-grid {
-      margin-top: 0;
+
+    .journey-heading :global(.chapter-top) {
+      margin-bottom: 50px;
     }
-    .timeline-overline {
-      margin: 20px 0 0;
-    }
-    .timeline-item {
-      grid-template-columns: 43px 1fr 20px;
-      gap: 10px;
-    }
-    .education-line {
+
+    .journey-grid {
       grid-template-columns: 1fr;
-      gap: 15px;
+      gap: 50px;
+    }
+
+    .journey-intro .section-display {
+      font-size: clamp(48px, 8vw, 70px);
+    }
+
+    .journey-lead {
+      margin-top: 25px;
+    }
+
+    .journey-meta {
+      grid-template-columns: 1fr;
+      gap: 30px;
+
       margin-top: 50px;
+    }
+  }
+
+  @media (max-width: 450px) {
+    .journey-intro .section-display {
+      font-size: clamp(39px, 10vw, 50px);
+    }
+
+    .evolution-item {
+      grid-template-columns: 30px 1fr;
+      gap: 12px;
+    }
+
+    .evolution-content h3 {
+      font-size: 20px;
     }
   }
 </style>

@@ -12,12 +12,22 @@ const initial =
 >
   <div class='flow-panel-head'>
     <span class='eyebrow'>02.A / Arquitecturas posibles</span><span
-      class='pulse'><span class='live-dot'></span> Explorador interactivo</span>
+      class='pulse'><span class='live-dot'></span> Explorador interactivo</span
+    >
   </div>
   <div class='flow-body'>
     <div class='flow-heading-line'>
-      <h3 id='flow-title'>Lo importante es cómo se conectan.</h3><span
-        class='hint'>Selecciona un escenario ↓</span>
+      <div class='flow-heading-copy'>
+        <h3 id='flow-title'>Lo importante es cómo se conectan.</h3>
+
+        <p>
+          Explora cómo diferentes herramientas y sistemas pueden trabajar juntos
+          para automatizar procesos, conectar información y mejorar la operación
+          de una empresa.
+        </p>
+      </div>
+
+      <span class='hint'>Selecciona un escenario ↓</span>
     </div>
     <div
       class='flow-tabs'
@@ -43,7 +53,9 @@ const initial =
           <>
             {i > 0 && (
               <div class='flow-connector' aria-hidden='true'>
-                <span />
+                <span class='flow-track'>
+                  <span class='flow-pulse' />
+                </span>
               </div>
             )}
             <div class='flow-node' data-flow-node>
@@ -59,7 +71,8 @@ const initial =
     <div class='flow-caption'>
       <p data-flow-caption>{initial.caption}</p><span
         class='caption-label'
-        data-flow-pattern>{initial.label}</span>
+        data-flow-pattern>{initial.label}</span
+      >
     </div>
     <p class='flow-disclaimer'>
       Esquemas conceptuales que ilustran distintas arquitecturas; no representan
@@ -137,11 +150,26 @@ const initial =
     font-size: 11px;
     white-space: nowrap;
   }
+  .flow-heading-copy {
+    min-width: 0;
+    max-width: 850px;
+  }
+
+  .flow-heading-copy p {
+    max-width: 640px;
+    margin: 20px 0 0;
+
+    font-size: clamp(13px, 1.1vw, 15px);
+    font-weight: 300;
+    line-height: 1.65;
+
+    color: #d2d2ce;
+  }
   .flow-tabs {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin: 36px 0 38px;
+    margin: 42px 0 38px;
   }
   .flow-tab {
     cursor: pointer;
@@ -197,11 +225,16 @@ const initial =
     font-weight: 400;
     letter-spacing: -0.025em;
   }
+  /* FLOW CONNECTOR */
+
   .flow-connector {
-    height: 1px;
     position: relative;
+    height: 2px;
     background: #8c8c8c;
   }
+
+  /* Arrow */
+
   .flow-connector::after {
     content: '›';
     position: absolute;
@@ -210,16 +243,40 @@ const initial =
     color: var(--accent);
     font-size: 22px;
   }
-  .flow-connector span {
-    display: block;
-    width: 28%;
-    height: 2px;
+
+  /* Animation boundaries */
+
+  .flow-track {
     position: absolute;
-    left: -40%;
-    top: -0.5px;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  /* Animated pulse */
+
+  .flow-pulse {
+    position: absolute;
+    width: 28%;
+    height: 100%;
+    top: 0;
+    left: -28%;
     background: var(--accent);
+
     animation: flow 2.5s linear infinite;
   }
+
+  /* Horizontal animation */
+
+  @keyframes flow {
+    from {
+      left: -28%;
+    }
+
+    to {
+      left: 100%;
+    }
+  }
+
   @keyframes flow {
     from {
       left: -15%;
@@ -300,10 +357,12 @@ const initial =
       top: 8px;
       font-size: 17px;
     }
-    .flow-connector span {
-      width: 2px;
+    .flow-pulse {
+      width: 100%;
       height: 30%;
-      left: -1px;
+      left: 0;
+      top: -30%;
+
       animation: flow-vertical 2.3s linear infinite;
     }
     .flow-caption {
@@ -313,8 +372,9 @@ const initial =
   }
   @keyframes flow-vertical {
     from {
-      top: -20%;
+      top: -30%;
     }
+
     to {
       top: 100%;
     }

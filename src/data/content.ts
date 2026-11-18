@@ -9,20 +9,20 @@ export const capabilities = [
 
 export const solutions = [
   {
-    title: 'Plataformas digitales.',
-    text: 'Interfaces, aplicaciones y componentes modulares con lógica de negocio e integración de datos.',
+    title: 'Automatización comercial.',
+    text: 'Conecto campañas publicitarias, formularios, WhatsApp y sistemas CRM para registrar prospectos, asignar responsables, automatizar el primer contacto y coordinar su seguimiento comercial.',
   },
   {
-    title: 'Sistemas conectados.',
-    text: 'Comunicación entre CRMs, ERPs y servicios externos mediante APIs REST, webhooks y middleware.',
+    title: 'Integración de sistemas.',
+    text: 'Conecto plataformas comerciales, administrativas y herramientas internas para sincronizar información, aplicar reglas de negocio y mantener procesos coordinados entre diferentes sistemas.',
   },
   {
-    title: 'Procesos automatizados.',
-    text: 'Flujos operativos, mensajería, seguimiento y tareas programadas con control de estados.',
+    title: 'Desarrollo a medida.',
+    text: 'Diseño y desarrollo aplicaciones web, herramientas internas y plataformas digitales que responden a necesidades específicas, integran información y evolucionan con cada organización.',
   },
   {
-    title: 'Infraestructura operativa.',
-    text: 'Servidores, hosting, bases de datos, VPN, despliegues, observabilidad y mantenimiento.',
+    title: 'Infraestructura y continuidad.',
+    text: 'Configuro y administro servidores, bases de datos, entornos de hosting, conexiones VPN y procesos automatizados para mantener soluciones estables, seguras y sostenibles.',
   },
 ] as const;
 
@@ -80,6 +80,34 @@ export const career = [
   'Estrategia Urbana',
   'Grupo Boletín',
   'Globalpaq',
-  'AD+ Agencia Digital',
+  'AD+',
   'Gobiernos municipales',
+] as const;
+
+// Evolución profesional
+
+export const careerEvolution = [
+  {
+    title: 'Diseño y comunicación visual',
+    description:
+      'Mi formación comenzó en el diseño, desarrollando una comprensión de la comunicación, las jerarquías visuales y la relación entre las personas y las interfaces digitales.',
+  },
+  {
+    title: 'Interfaces y desarrollo web',
+    description:
+      'Esa perspectiva evolucionó hacia la programación. Pasé de diseñar experiencias digitales a construir interfaces, aplicaciones y funcionalidades con lógica de negocio propia.',
+  },
+  {
+    title: 'Integraciones, automatización y consultoría',
+    description:
+      'Mi evolución hacia la arquitectura tecnológica me ha permitido diseñar e implementar integraciones entre plataformas, automatizar procesos comerciales y ofrecer consultoría especializada en CRM, flujos de trabajo y soluciones digitales.',
+  },
+] as const;
+
+export const consulting = [
+  {
+    client: 'Damex',
+    description:
+      'Consultoría en automatización comercial, arquitectura CRM, diseño de workflows, integración de plataformas y flujos de captación, atención y seguimiento de prospectos.',
+  },
 ] as const;
