@@ -1,0 +1,105 @@
+---
+import ChapterHeading from '../ui/ChapterHeading.astro';
+import { capabilities } from '../../data/content';
+---
+
+<section class='section-border' id='enfoque' aria-labelledby='approach-title'>
+  <div class='shell chapter'>
+    <ChapterHeading
+      number='01'
+      title='Enfoque'
+      subtitle='Lo que construyo / Cómo lo pienso'
+    />
+    <div class='approach-grid'>
+      <div data-reveal>
+        <h2 class='section-display' id='approach-title'>
+          Más que<br /><span class='low'>interfaces.</span>
+        </h2>
+        <p class='approach-lead'>
+          Trabajo entre el diseño, el desarrollo y la lógica de negocio.
+          Traduzco necesidades operativas en plataformas, integraciones y
+          automatizaciones que pueden crecer con cada organización.
+        </p>
+      </div>
+      <div class='approach-list' data-reveal>
+        {
+          capabilities.map((text, index) => (
+            <div class='approach-item'>
+              <>
+                <span>{String(index + 1).padStart(2, '0')} /</span>
+                <strong>{text}</strong>
+                <i aria-hidden='true' />
+              </>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .approach-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    column-gap: min(9vw, 140px);
+  }
+  .approach-lead {
+    font-size: clamp(19px, 2.4vw, 30px);
+    line-height: 1.42;
+    font-weight: 300;
+    letter-spacing: -0.04em;
+    margin: 48px 0 0;
+    max-width: 660px;
+  }
+  .approach-list {
+    padding-top: 4px;
+  }
+  .approach-item {
+    border-top: 1px solid var(--rule);
+    padding: 21px 0 23px;
+    display: grid;
+    grid-template-columns: 38px 1fr 22px;
+    gap: 14px;
+    align-items: center;
+  }
+  .approach-item:last-child {
+    border-bottom: 1px solid var(--rule);
+  }
+  .approach-item span {
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .approach-item strong {
+    font-size: clamp(16px, 1.6vw, 23px);
+    font-weight: 400;
+    letter-spacing: -0.04em;
+  }
+  .approach-item i {
+    height: 10px;
+    width: 10px;
+    border: 1px solid #a7a7a7;
+    border-radius: 50%;
+    transition:
+      background 0.3s,
+      transform 0.3s;
+  }
+  .approach-item:hover i {
+    background: #d8e557;
+    transform: scale(1.4);
+  }
+  @media (max-width: 780px) {
+    .approach-grid,
+    .exp-main,
+    .stack-intro,
+    .timeline-grid {
+      grid-template-columns: 1fr;
+      gap: 55px;
+    }
+    .approach-lead {
+      margin-top: 35px;
+    }
+    .approach-list {
+      padding-top: 0;
+    }
+  }
+</style>

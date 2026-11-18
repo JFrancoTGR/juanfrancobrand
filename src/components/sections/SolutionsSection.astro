@@ -1,0 +1,170 @@
+---
+import ChapterHeading from '../ui/ChapterHeading.astro';
+import ArchitectureExplorer from '../interactive/ArchitectureExplorer.astro';
+import MethodStrip from '../interactive/MethodStrip.astro';
+import { solutions } from '../../data/content';
+---
+
+<section class='dark-section' id='soluciones' aria-labelledby='solutions-title'>
+  <div class='shell exp-wrap'>
+    <ChapterHeading
+      number='02'
+      title='Capacidades en acción'
+      subtitle='Independiente de industria y plataforma'
+    />
+    <div class='exp-main'>
+      <div class='exp-left' data-reveal>
+        <h2 class='section-display' id='solutions-title'>
+          Sistemas que<br /><span class='low'>resuelven.</span>
+        </h2><span class='date eyebrow'
+          >De la necesidad a la implementación</span>
+      </div>
+      <div class='exp-description' data-reveal>
+        <div class='exp-heading'>
+          <div>
+            <h3>Resolver antes que elegir herramientas.</h3><p>
+              Diseño técnico / Desarrollo / Integración / Operación
+            </p>
+          </div><span class='badge' aria-hidden='true'>↗</span>
+        </div>
+        <p class='exp-copy'>
+          Cada organización tiene procesos, equipos y sistemas diferentes. Mi
+          trabajo es encontrar la arquitectura adecuada para conectarlos,
+          simplificarlos y hacerlos sostenibles.
+        </p>
+        <div class='exp-points'>
+          {
+            solutions.map((point, index) => (
+              <div class='exp-point'>
+                <>
+                  <span class='icon'>{String(index + 1).padStart(2, '0')}</span>
+                  <p>
+                    <strong>{point.title}</strong> {point.text}
+                  </p>
+                </>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+    <ArchitectureExplorer />
+    <MethodStrip />
+  </div>
+</section>
+<style>
+  .dark-section {
+    background: var(--dark);
+    color: #f7f7f5;
+  }
+  .exp-wrap {
+    padding-top: clamp(80px, 10vw, 145px);
+    padding-bottom: clamp(85px, 9vw, 130px);
+  }
+  .exp-main {
+    display: grid;
+    grid-template-columns: 0.7fr 1.3fr;
+    gap: 8%;
+  }
+  .exp-left .section-display {
+    font-size: clamp(55px, 6.2vw, 94px);
+  }
+  .exp-left .date {
+    display: inline-block;
+    margin-top: 54px;
+    color: #dadad7;
+    font-size: 12px;
+  }
+  .exp-description {
+    border-top: 1px solid #6c6c6c;
+  }
+  .exp-heading {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    align-items: start;
+    padding: 28px 0 37px;
+  }
+  .exp-heading h3 {
+    font-size: clamp(32px, 4vw, 65px);
+    letter-spacing: -0.075em;
+    font-weight: 400;
+    margin: 0 0 8px;
+  }
+  .exp-heading p {
+    color: #bdbdb9;
+    font-size: 13px;
+    margin: 0;
+  }
+  .exp-heading .badge {
+    border: 1px solid #777777;
+    border-radius: 50%;
+    width: 39px;
+    height: 39px;
+    display: grid;
+    place-items: center;
+    font-size: 17px;
+  }
+  .exp-copy {
+    max-width: 740px;
+    font-size: clamp(18px, 1.75vw, 24px);
+    font-weight: 300;
+    line-height: 1.55;
+    letter-spacing: -0.035em;
+    color: #e1e1de;
+    margin: 0 0 34px;
+  }
+  .exp-points {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 34px;
+  }
+  .exp-point {
+    border-top: 1px solid #676767;
+    padding: 23px 0 27px;
+    display: grid;
+    grid-template-columns: 27px 1fr;
+    gap: 10px;
+  }
+  .exp-point .icon {
+    color: var(--accent);
+    font-size: 19px;
+  }
+  .exp-point p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #d2d2ce;
+  }
+  .exp-heading h3 {
+    font-size: clamp(29px, 3.15vw, 48px);
+    max-width: 610px;
+    line-height: 1.08;
+  }
+  .exp-point .icon {
+    color: var(--accent);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    padding-top: 3px;
+  }
+  .exp-point strong {
+    color: #f7f7f5;
+    font-weight: 400;
+  }
+  @media (max-width: 780px) {
+    .exp-wrap {
+      padding-top: 80px;
+    }
+    .exp-left .date {
+      margin-top: 25px;
+    }
+    .exp-points {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 450px) {
+    .exp-left .section-display {
+      font-size: 65px;
+    }
+  }
+</style>

@@ -1,0 +1,130 @@
+---
+import { site } from '../../data/site';
+---
+
+<section class='contact shell' id='contacto' aria-labelledby='contact-title'>
+  <div class='contact-head eyebrow'>
+    <span>05 / Contacto</span><span class='quiet' style='text-align:right'
+      >El siguiente proyecto empieza con una conversación.</span>
+  </div>
+  <h2 class='section-display' id='contact-title' data-reveal>
+    Hablemos<span class='light'>.</span>
+  </h2>
+  <p class='contact-description' data-reveal>
+    ¿Buscas fortalecer un equipo, conectar sistemas o resolver un proceso
+    complejo? Podemos empezar por entender el reto.
+  </p>
+  <div class='contact-actions' data-reveal>
+    <a class='contact-button' href={`mailto:${site.email}`}
+      ><span>Iniciar conversación</span><span class='arrow'>↗</span></a
+    >
+    {
+      site.linkedIn ? (
+        <a
+          class='contact-button secondary'
+          href={site.linkedIn}
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          <>
+            <span>LinkedIn</span>
+            <span class='arrow'>↗</span>
+          </>
+        </a>
+      ) : (
+        <span
+          class='contact-button secondary contact-unavailable'
+          title='Enlace por verificar'
+        >
+          LinkedIn · Próximamente
+        </span>
+      )
+    }
+  </div>
+</section>
+<style>
+  .contact {
+    padding-top: clamp(95px, 12vw, 180px);
+    padding-bottom: 35px;
+  }
+  .contact-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+  .contact .section-display {
+    margin: 66px 0 30px;
+    font-size: clamp(72px, 11vw, 174px);
+  }
+  .contact .section-display .light {
+    font-weight: 300;
+  }
+  .contact-description {
+    font-size: clamp(18px, 2.3vw, 29px);
+    font-weight: 300;
+    letter-spacing: -0.04em;
+    line-height: 1.4;
+    max-width: 590px;
+    margin: 0 0 70px;
+  }
+  .contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding-bottom: 120px;
+  }
+  .contact-button {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+    min-width: 225px;
+    padding: 20px 22px;
+    background: var(--ink);
+    color: #f7f7f5;
+    border: 1px solid var(--ink);
+    font-size: 13px;
+    transition:
+      color 0.3s,
+      background 0.3s;
+  }
+  .contact-button:hover {
+    background: var(--accent);
+    color: var(--ink);
+  }
+  .contact-button.secondary {
+    background: transparent;
+    color: var(--ink);
+  }
+  .contact-button.secondary:hover {
+    background: var(--accent);
+  }
+  @media (max-width: 780px) {
+    .contact {
+      padding-top: 90px;
+    }
+    .contact .section-display {
+      margin-top: 60px;
+      font-size: clamp(76px, 13vw, 115px);
+    }
+    .contact-actions {
+      padding-bottom: 90px;
+    }
+  }
+  @media (max-width: 450px) {
+    .contact .section-display {
+      font-size: clamp(61px, 15.5vw, 77px);
+    }
+    .contact-button {
+      width: 100%;
+    }
+  }
+  .contact-unavailable {
+    opacity: 0.6;
+    cursor: default;
+  }
+  .contact-button.secondary.contact-unavailable:hover {
+    background: transparent;
+  }
+</style>

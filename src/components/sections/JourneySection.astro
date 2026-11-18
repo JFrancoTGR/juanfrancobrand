@@ -1,0 +1,138 @@
+---
+import ChapterHeading from '../ui/ChapterHeading.astro';
+import { career } from '../../data/content';
+---
+
+<section
+  class='timeline-section'
+  id='trayectoria'
+  aria-labelledby='timeline-title'
+>
+  <div class='shell'>
+    <ChapterHeading
+      number='04'
+      title='Trayectoria y formación'
+      subtitle='La perspectiva que aporta el recorrido'
+    />
+    <div class='timeline-grid'>
+      <div data-reveal>
+        <h2 class='section-display' id='timeline-title'>
+          Diseño.<br /><span class='low'>Gestión.</span><br />Tecnología.
+        </h2><p class='timeline-overline'>
+          Una trayectoria entre comunicación visual, tecnología y operación. El
+          trabajo en el sector inmobiliario es una experiencia relevante, no el
+          límite de lo que puedo construir.
+        </p>
+      </div>
+      <div class='timeline-items' data-reveal>
+        {
+          career.map((company, index) => (
+            <div class='timeline-item'>
+              <>
+                <span class='order'>{String(index + 1).padStart(2, '0')}</span>
+                <h3>{company}</h3>
+                <span class='tag' aria-hidden='true'>
+                  ↗
+                </span>
+              </>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <div class='education-line' data-reveal>
+      <span class='eyebrow quiet'>Formación académica / 01</span><p>
+        <strong>Licenciatura en Diseño Gráfico</strong><br /><span class='quiet'
+          >Universidad Tecnológica de México · UNITEC</span>
+      </p>
+    </div>
+  </div>
+</section>
+<style>
+  .timeline-section {
+    padding-top: 120px;
+    padding-bottom: 140px;
+    background: #efefec;
+  }
+  .timeline-grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 10%;
+    margin-top: 85px;
+  }
+  .timeline-overline {
+    font-size: 12px;
+    line-height: 1.65;
+    color: var(--muted);
+    max-width: 305px;
+    margin-top: 35px;
+  }
+  .timeline-items {
+    border-top: 1px solid #d4d4ce;
+  }
+  .timeline-item {
+    padding: 25px 0 27px;
+    border-bottom: 1px solid #d4d4ce;
+    display: grid;
+    grid-template-columns: 95px 1fr 25px;
+    gap: 20px;
+    align-items: center;
+  }
+  .timeline-item .order {
+    color: var(--muted);
+    font-size: 11px;
+  }
+  .timeline-item h3 {
+    font-weight: 400;
+    font-size: clamp(18px, 2.2vw, 29px);
+    letter-spacing: -0.055em;
+    margin: 0;
+  }
+  .timeline-item .tag {
+    text-align: right;
+    font-size: 21px;
+    font-weight: 300;
+    transition: transform 0.25s;
+  }
+  .timeline-item:hover .tag {
+    transform: translate(4px, -4px);
+  }
+  .education-line {
+    border-top: 1px solid #d4d4ce;
+    margin-top: 70px;
+    padding-top: 26px;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 20px;
+    align-items: baseline;
+  }
+  .education-line p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .education-line strong {
+    font-weight: 400;
+  }
+  @media (max-width: 780px) {
+    .timeline-section {
+      padding-top: 90px;
+      padding-bottom: 95px;
+    }
+    .timeline-grid {
+      margin-top: 0;
+    }
+    .timeline-overline {
+      margin: 20px 0 0;
+    }
+    .timeline-item {
+      grid-template-columns: 43px 1fr 20px;
+      gap: 10px;
+    }
+    .education-line {
+      grid-template-columns: 1fr;
+      gap: 15px;
+      margin-top: 50px;
+    }
+  }
+</style>

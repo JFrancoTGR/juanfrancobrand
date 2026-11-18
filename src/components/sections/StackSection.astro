@@ -1,0 +1,140 @@
+---
+import ChapterHeading from '../ui/ChapterHeading.astro';
+import { technologyGroups } from '../../data/content';
+---
+
+<section id='stack' aria-labelledby='stack-title'>
+  <div class='shell chapter stack-wrap'>
+    <ChapterHeading
+      number='03'
+      title='Herramientas y tecnologías'
+      subtitle='Del código a la infraestructura'
+    />
+    <div class='stack-intro'>
+      <h2 class='section-display' id='stack-title' data-reveal>
+        Stack<span class='low'> &amp;</span><br />método<span class='low'
+          >.</span>
+      </h2>
+      <p data-reveal>
+        No parto de una plataforma favorita: selecciono la tecnología a partir
+        de las necesidades del proyecto, su infraestructura y su capacidad de
+        evolución.
+      </p>
+    </div>
+    <div class='stack-groups' data-reveal>
+      {
+        technologyGroups.map((group, i) => (
+          <div class='stack-group'>
+            <div class='stack-group-title'>
+              <>
+                <span>{String(i + 1).padStart(2, '0')} /</span>
+                <h3>{group.title}</h3>
+              </>
+            </div>
+            <div class='stack-tags'>
+              {group.tags.map((tag) => (
+                <span class='stack-tag'>{tag}</span>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+<style>
+  .stack-wrap {
+    padding-bottom: 130px;
+  }
+  .stack-intro {
+    display: grid;
+    grid-template-columns: 1fr 0.8fr;
+    gap: 50px;
+    align-items: end;
+    margin-bottom: 80px;
+  }
+  .stack-intro p {
+    max-width: 430px;
+    font-size: 18px;
+    line-height: 1.6;
+    font-weight: 300;
+    letter-spacing: -0.025em;
+    color: #656565;
+    margin: 0 0 9px auto;
+  }
+  .stack-groups {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .stack-group {
+    padding: 32px 32px 40px;
+    border-right: 1px solid var(--rule);
+  }
+  .stack-group:first-child {
+    padding-left: 0;
+  }
+  .stack-group:last-child {
+    border-right: 0;
+    padding-right: 0;
+  }
+  .stack-group-title {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 60px;
+  }
+  .stack-group-title span {
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .stack-group-title h3 {
+    font-size: 13px;
+    font-weight: 400;
+    margin: 0;
+  }
+  .stack-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: start;
+  }
+  .stack-tag {
+    font-size: 12px;
+    border: 1px solid #d0d0cb;
+    border-radius: 99px;
+    padding: 10px 14px;
+    line-height: 1.25;
+    transition:
+      background 0.25s,
+      border 0.25s,
+      transform 0.25s;
+  }
+  .stack-tag:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  @media (max-width: 780px) {
+    .stack-intro p {
+      margin: 0;
+    }
+    .stack-groups {
+      grid-template-columns: 1fr;
+    }
+    .stack-group,
+    .stack-group:first-child,
+    .stack-group:last-child {
+      padding: 25px 0 28px;
+      border-right: 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .stack-group:last-child {
+      border-bottom: none;
+    }
+    .stack-group-title {
+      margin-bottom: 28px;
+    }
+  }
+</style>

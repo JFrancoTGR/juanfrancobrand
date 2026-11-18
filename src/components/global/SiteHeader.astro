@@ -1,0 +1,203 @@
+---
+import { navigation } from '../../data/site';
+---
+
+<header class='site-header' id='site-header'>
+  <div class='shell nav-inner'>
+    <a class='brand' href='#inicio' aria-label='Juan Franco, volver al inicio'>
+      <span class='brand-mark' aria-hidden='true'>JF.</span>
+      <span class='brand-words'
+        ><strong>JUAN FRANCO</strong><span>PERFIL &amp; CONSULTORÍA</span></span
+      >
+    </a>
+    <span class='header-center'
+      >Desarrollo &nbsp; / &nbsp; Sistemas &nbsp; / &nbsp; Automatización</span
+    >
+    <nav class='nav-links' id='nav-links' aria-label='Navegación principal'>
+      {
+        navigation.map((item) => (
+          <a class='nav-link' href={item.href}>
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+    <button
+      class='menu-toggle'
+      id='menu-toggle'
+      type='button'
+      aria-label='Abrir menú'
+      aria-controls='nav-links'
+      aria-expanded='false'><span></span><span></span></button
+    >
+  </div>
+  <div class='top-progress' id='top-progress' aria-hidden='true'></div>
+</header>
+<script>
+  import { initHeader } from '../../scripts/header';
+  initHeader();
+</script>
+<style>
+  .site-header {
+    position: fixed;
+    z-index: 50;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(247, 247, 245, 0.93);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid transparent;
+    transition: border 0.2s;
+  }
+  .site-header.scrolled {
+    border-bottom-color: var(--rule);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 89px;
+    gap: 40px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 17px;
+    white-space: nowrap;
+  }
+  .brand-mark {
+    width: 38px;
+    height: 38px;
+    background: var(--ink);
+    color: var(--paper);
+    display: grid;
+    place-items: center;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: -0.07em;
+  }
+  .brand-words {
+    display: flex;
+    flex-direction: column;
+    font-size: 11px;
+    line-height: 1.35;
+    letter-spacing: 0.035em;
+  }
+  .brand-words strong {
+    font-weight: 900;
+  }
+  .header-center {
+    font-size: 10px;
+    letter-spacing: 0.13em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+  .nav-link {
+    font-size: 12px;
+    color: #686868;
+    transition: color 0.2s;
+  }
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--ink);
+  }
+  .nav-link.active::before {
+    content: '•';
+    color: #9ba531;
+    padding-right: 7px;
+  }
+  .menu-toggle {
+    display: none;
+    background: transparent;
+    border: 0;
+    color: var(--ink);
+    width: 35px;
+    height: 35px;
+    padding: 5px;
+    cursor: pointer;
+  }
+  .menu-toggle span {
+    display: block;
+    height: 1px;
+    width: 100%;
+    background: currentColor;
+    margin: 6px auto;
+    transition:
+      transform 0.25s,
+      opacity 0.25s;
+  }
+  .menu-toggle[aria-expanded='true'] span:first-child {
+    transform: translateY(3.5px) rotate(45deg);
+  }
+  .menu-toggle[aria-expanded='true'] span:last-child {
+    transform: translateY(-3.5px) rotate(-45deg);
+  }
+  .top-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background: var(--accent);
+    transform-origin: left;
+    transition: width 0.1s linear;
+  }
+  @media (max-width: 1140px) {
+    .header-center {
+      display: none;
+    }
+  }
+  @media (max-width: 780px) {
+    .nav-inner {
+      height: 70px;
+    }
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+    }
+    .menu-toggle {
+      display: block;
+    }
+    .nav-links {
+      position: absolute;
+      background: var(--paper);
+      top: 70px;
+      left: 0;
+      right: 0;
+      padding: 25px var(--gutter) 35px;
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition:
+        opacity 0.2s,
+        transform 0.2s,
+        visibility 0.2s;
+    }
+    .nav-links.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .nav-link {
+      font-size: 20px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+  }
+  @media (max-width: 450px) {
+    .brand-words {
+      font-size: 10px;
+    }
+  }
+</style>

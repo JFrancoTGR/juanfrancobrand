@@ -1,0 +1,16 @@
+---
+interface Props {
+  number: string;
+  title: string;
+  subtitle: string;
+}
+const { number, title, subtitle } = Astro.props;
+---
+
+<div class='chapter-top eyebrow'>
+  <div class='chapter-id'>
+    <span class='num'>{number}</span><span class='chapter-title-sm'
+      >{title}</span>
+  </div>
+  <span class='chapter-suffix quiet'>{subtitle}</span>
+</div>

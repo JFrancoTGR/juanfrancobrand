@@ -1,0 +1,331 @@
+---
+import { architectures } from '../../data/architectures';
+const initial =
+  architectures.find((s) => s.id === 'sincronizacion') ?? architectures[0];
+---
+
+<div
+  class='flow-panel'
+  data-reveal
+  aria-labelledby='flow-title'
+  data-architecture-explorer
+>
+  <div class='flow-panel-head'>
+    <span class='eyebrow'>02.A / Arquitecturas posibles</span><span
+      class='pulse'><span class='live-dot'></span> Explorador interactivo</span>
+  </div>
+  <div class='flow-body'>
+    <div class='flow-heading-line'>
+      <h3 id='flow-title'>Lo importante es cómo se conectan.</h3><span
+        class='hint'>Selecciona un escenario ↓</span>
+    </div>
+    <div
+      class='flow-tabs'
+      role='group'
+      aria-label='Seleccionar escenario de arquitectura'
+    >
+      {
+        architectures.map((scenario) => (
+          <button
+            class='flow-tab'
+            type='button'
+            data-flow={scenario.id}
+            aria-pressed={initial.id === scenario.id}
+          >
+            {scenario.name}
+          </button>
+        ))
+      }
+    </div>
+    <div class='flow-stage' aria-live='polite'>
+      {
+        initial.nodes.map((node, i) => (
+          <>
+            {i > 0 && (
+              <div class='flow-connector' aria-hidden='true'>
+                <span />
+              </div>
+            )}
+            <div class='flow-node' data-flow-node>
+              <>
+                <small data-flow-label>{node.eyebrow}</small>
+                <strong data-flow-name>{node.title}</strong>
+              </>
+            </div>
+          </>
+        ))
+      }
+    </div>
+    <div class='flow-caption'>
+      <p data-flow-caption>{initial.caption}</p><span
+        class='caption-label'
+        data-flow-pattern>{initial.label}</span>
+    </div>
+    <p class='flow-disclaimer'>
+      Esquemas conceptuales que ilustran distintas arquitecturas; no representan
+      un producto único.
+    </p>
+  </div>
+</div>
+<script>
+  import { initArchitectureExplorers } from '../../scripts/architectures';
+  initArchitectureExplorers();
+</script>
+<style>
+  .flow-panel {
+    border: 1px solid #717171;
+    margin-top: 99px;
+    position: relative;
+    overflow: hidden;
+  }
+  .flow-panel-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+    padding: 25px 30px;
+    border-bottom: 1px solid #717171;
+  }
+  .flow-panel-head .pulse {
+    display: flex;
+    gap: 9px;
+    align-items: center;
+    color: #e5e5dd;
+    font-size: 11px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .live-dot {
+    height: 7px;
+    width: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 6px rgba(216, 229, 87, 0.12);
+    animation: blink 2s infinite;
+  }
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
+  .flow-body {
+    padding: 42px 42px 43px;
+    background: radial-gradient(
+      ellipse 50% 80% at 53% 55%,
+      rgba(216, 229, 87, 0.07),
+      transparent 75%
+    );
+  }
+  .flow-heading-line {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: end;
+  }
+  .flow-heading-line h3 {
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: -0.055em;
+    font-size: clamp(28px, 3.3vw, 49px);
+  }
+  .flow-heading-line .hint {
+    color: #c6c6c0;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+  .flow-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 36px 0 38px;
+  }
+  .flow-tab {
+    cursor: pointer;
+    border: 1px solid #777777;
+    color: #e0e0db;
+    background: none;
+    padding: 11px 17px;
+    border-radius: 30px;
+    font-size: 12px;
+    transition: 0.25s;
+  }
+  .flow-tab:hover {
+    border-color: #c6cf80;
+  }
+  .flow-tab[aria-pressed='true'] {
+    color: var(--ink);
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .flow-stage {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 1fr minmax(0, 1fr) 1fr minmax(0, 1fr);
+    gap: 8px;
+    align-items: center;
+    min-height: 127px;
+  }
+  .flow-node {
+    min-height: 118px;
+    border: 1px solid #838383;
+    background: #383838;
+    padding: 21px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition:
+      border 0.35s,
+      background 0.35s,
+      transform 0.35s;
+  }
+  .flow-node:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    background: #343434;
+  }
+  .flow-node small {
+    text-transform: uppercase;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: #c1c1bc;
+  }
+  .flow-node strong {
+    font-size: clamp(14px, 1.7vw, 21px);
+    font-weight: 400;
+    letter-spacing: -0.025em;
+  }
+  .flow-connector {
+    height: 1px;
+    position: relative;
+    background: #8c8c8c;
+  }
+  .flow-connector::after {
+    content: '›';
+    position: absolute;
+    right: -1px;
+    top: -15px;
+    color: var(--accent);
+    font-size: 22px;
+  }
+  .flow-connector span {
+    display: block;
+    width: 28%;
+    height: 2px;
+    position: absolute;
+    left: -40%;
+    top: -0.5px;
+    background: var(--accent);
+    animation: flow 2.5s linear infinite;
+  }
+  @keyframes flow {
+    from {
+      left: -15%;
+    }
+    to {
+      left: 100%;
+    }
+  }
+  .flow-caption {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 30px;
+    border-top: 1px solid #707070;
+    padding-top: 23px;
+    margin-top: 30px;
+  }
+  .flow-caption p {
+    margin: 0;
+    max-width: 740px;
+    color: #deded9;
+    font-size: 13px;
+    line-height: 1.65;
+  }
+  .flow-caption .caption-label {
+    color: #b6b6ae;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+  .flow-disclaimer {
+    color: #bdbdb7;
+    font-size: 10px;
+    line-height: 1.6;
+    margin: 18px 0 0;
+  }
+  @media (max-width: 1140px) {
+    .flow-body {
+      padding: 30px;
+    }
+    .flow-node {
+      padding: 15px;
+    }
+  }
+  @media (max-width: 780px) {
+    .flow-panel {
+      margin-top: 65px;
+    }
+    .flow-panel-head {
+      padding: 19px;
+    }
+    .flow-body {
+      padding: 24px 20px 30px;
+    }
+    .flow-heading-line .hint {
+      display: none;
+    }
+    .flow-stage {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .flow-node {
+      min-height: 90px;
+      padding: 16px 18px;
+    }
+    .flow-node strong {
+      font-size: 19px;
+    }
+    .flow-connector {
+      width: 1px;
+      height: 25px;
+      justify-self: center;
+    }
+    .flow-connector::after {
+      content: '⌄';
+      right: -5px;
+      top: 8px;
+      font-size: 17px;
+    }
+    .flow-connector span {
+      width: 2px;
+      height: 30%;
+      left: -1px;
+      animation: flow-vertical 2.3s linear infinite;
+    }
+    .flow-caption {
+      flex-direction: column-reverse;
+      gap: 12px;
+    }
+  }
+  @keyframes flow-vertical {
+    from {
+      top: -20%;
+    }
+    to {
+      top: 100%;
+    }
+  }
+  @media (max-width: 450px) {
+    .flow-tabs {
+      gap: 6px;
+    }
+    .flow-tab {
+      padding: 9px 12px;
+      font-size: 11px;
+    }
+  }
+</style>
