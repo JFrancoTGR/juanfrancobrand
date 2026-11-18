@@ -1,0 +1,44 @@
+---
+interface Props {
+  src: string;
+  alt?: string;
+}
+
+const { src, alt = 'Retrato de Juan Franco' } = Astro.props;
+---
+
+<figure class="profile-portrait">
+  <img
+    src={src}
+    alt={alt}
+    loading="lazy"
+    decoding="async"
+    width="420"
+    height="420"
+  />
+</figure>
+
+<style>
+  .profile-portrait {
+    width: clamp(150px, 16vw, 220px);
+    aspect-ratio: 1;
+    margin: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+  }
+
+  .profile-portrait img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    transition: transform 0.7s var(--ease);
+  }
+
+  .profile-portrait:hover img {
+    transform: scale(1.045);
+  }
+</style>

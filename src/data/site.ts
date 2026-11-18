@@ -2,6 +2,7 @@ export const site = {
   name: 'Juan Franco',
   fullName: 'Juan Antonio Franco Madrid',
   title: 'Juan Franco — Desarrollo, sistemas y automatización',
+  portrait: '/images/juan-franco-perfil.png',
   description:
     'Desarrollo de software, integración de sistemas y automatización. Perfil profesional y consultoría técnica independiente.',
   email: 'hola@juanfrancoconsultor.com',
@@ -9,7 +10,7 @@ export const site = {
   role: 'Full-Stack Developer',
   specialties: 'Integración de sistemas & automatización',
   // No publicar enlaces sociales hasta verificar el perfil definitivo.
-  linkedIn: null as string | null,
+  linkedIn: 'https://linkedin.com/in/juan-franco-756142207',
 } as const;
 
 export const navigation = [

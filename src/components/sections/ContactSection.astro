@@ -1,19 +1,27 @@
 ---
 import { site } from '../../data/site';
+import ProfilePortrait from '../ui/ProfilePortrait.astro';
 ---
 
 <section class='contact shell' id='contacto' aria-labelledby='contact-title'>
   <div class='contact-head eyebrow'>
     <span>05 / Contacto</span><span class='quiet' style='text-align:right'
-      >El siguiente proyecto empieza con una conversación.</span>
+      >El siguiente proyecto empieza con una conversación.</span
+    >
   </div>
   <h2 class='section-display' id='contact-title' data-reveal>
     Hablemos<span class='light'>.</span>
   </h2>
-  <p class='contact-description' data-reveal>
-    ¿Buscas fortalecer un equipo, conectar sistemas o resolver un proceso
-    complejo? Podemos empezar por entender el reto.
-  </p>
+  <div class='contact-intro'>
+    <p class='contact-description' data-reveal>
+      ¿Buscas fortalecer un equipo, conectar sistemas o resolver un proceso
+      complejo? Podemos empezar por entender el reto.
+    </p>
+
+    <div class='contact-portrait' data-reveal>
+      <ProfilePortrait src={site.portrait} />
+    </div>
+  </div>
   <div class='contact-actions' data-reveal>
     <a class='contact-button' href={`mailto:${site.email}`}
       ><span>Iniciar conversación</span><span class='arrow'>↗</span></a
@@ -100,6 +108,30 @@ import { site } from '../../data/site';
   .contact-button.secondary:hover {
     background: var(--accent);
   }
+
+  /* PROFILE PICTURE */
+  .contact-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 590px) auto;
+    align-items: center;
+    gap: clamp(40px, 6vw, 90px);
+    max-width: 950px;
+    margin-bottom: 70px;
+  }
+
+  .contact-description {
+    font-size: clamp(18px, 2.3vw, 29px);
+    font-weight: 300;
+    letter-spacing: -0.04em;
+    line-height: 1.4;
+    max-width: 590px;
+    margin: 0;
+  }
+
+  .contact-portrait {
+    justify-self: center;
+  }
+
   @media (max-width: 780px) {
     .contact {
       padding-top: 90px;
@@ -110,6 +142,17 @@ import { site } from '../../data/site';
     }
     .contact-actions {
       padding-bottom: 90px;
+    }
+  }
+  @media (max-width: 680px) {
+    .contact-intro {
+      grid-template-columns: 1fr;
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    .contact-portrait {
+      justify-self: end;
     }
   }
   @media (max-width: 450px) {

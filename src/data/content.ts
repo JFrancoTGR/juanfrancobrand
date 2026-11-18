@@ -56,6 +56,9 @@ export const technologyGroups = [
       'CAPISoft',
       'WhatsApp Business API',
       'SendPulse',
+      'Google Marketing Platform',
+      'Meta Business Platform',
+      'N8N',
     ],
   },
   {
