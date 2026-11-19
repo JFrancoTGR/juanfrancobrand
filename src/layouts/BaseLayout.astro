@@ -1,27 +1,129 @@
 ---
 import '../styles/global.css';
+
 import SiteHeader from '../components/global/SiteHeader.astro';
+import MobileSideNav from '../components/global/MobileSideNav.astro';
 import SiteFooter from '../components/global/SiteFooter.astro';
 import RevealController from '../components/global/RevealController.astro';
+
 import { site } from '../data/site';
+
 interface Props {
   title?: string;
   description?: string;
 }
+
 const { title = site.title, description = site.description } = Astro.props;
+
+const canonical = new URL(
+  Astro.url.pathname,
+  Astro.site ?? Astro.url.origin,
+).toString();
+
+const socialImage = new URL(
+  site.portrait,
+  Astro.site ?? Astro.url.origin,
+).toString();
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${canonical}#website`,
+      name: site.name,
+      url: canonical,
+      description,
+      inLanguage: 'es-MX',
+    },
+    {
+      '@type': 'Person',
+      '@id': `${canonical}#person`,
+      name: site.fullName,
+      alternateName: site.name,
+      url: canonical,
+      image: socialImage,
+      description,
+      jobTitle: 'Desarrollador Full-Stack y consultor tecnológico',
+      sameAs: site.linkedIn ? [site.linkedIn] : [],
+      knowsAbout: [
+        'Desarrollo de software',
+        'Desarrollo web',
+        'Integración de sistemas',
+        'Automatización comercial',
+        'Arquitectura CRM',
+        'APIs REST',
+        'Consultoría tecnológica',
+      ],
+    },
+  ],
+};
 ---
 
 <!doctype html>
 <html lang='es'>
   <head>
     <meta charset='utf-8' />
+
     <meta name='viewport' content='width=device-width, initial-scale=1' />
+
     <meta name='color-scheme' content='light' />
     <meta name='theme-color' content='#f7f7f5' />
-    <meta name='description' content={description} />
+
+    <!-- PRIMARY SEO -->
+
     <title>{title}</title>
+
+    <meta name='description' content={description} />
+
+    <meta name='robots' content='index, follow, max-image-preview:large' />
+
+    <link rel='canonical' href={canonical} />
+
+    <!-- FAVICON -->
+
+    <link rel='icon' type='image/svg+xml' href='/images/favicon.svg' />
+
+    <!-- OPEN GRAPH -->
+
+    <meta property='og:type' content='website' />
+    <meta property='og:locale' content='es_MX' />
+    <meta property='og:site_name' content={site.name} />
+
+    <meta property='og:title' content={title} />
+    <meta property='og:description' content={description} />
+
+    <meta property='og:url' content={canonical} />
+
+    <meta property='og:image' content={socialImage} />
+
+    <meta
+      property='og:image:alt'
+      content='Retrato profesional de Juan Franco'
+    />
+
+    <!-- TWITTER / X -->
+
+    <meta name='twitter:card' content='summary' />
+    <meta name='twitter:title' content={title} />
+
+    <meta name='twitter:description' content={description} />
+
+    <meta name='twitter:image' content={socialImage} />
+
+    <!-- STRUCTURED DATA -->
+
+    <script
+      type='application/ld+json'
+      set:html={JSON.stringify(structuredData).replace(/</g, '\\u003c')}
+    />
+
+    <!-- FONTS -->
+
     <link rel='preconnect' href='https://fonts.googleapis.com' />
+
     <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
+
     <link
       href='https://fonts.googleapis.com/css2?family=Geist:wght@300;400;900&display=swap'
       rel='stylesheet'
@@ -29,6 +131,7 @@ const { title = site.title, description = site.description } = Astro.props;
   </head>
   <body>
     <SiteHeader />
+    <MobileSideNav />
     <main><slot /></main>
     <SiteFooter />
     <RevealController />

@@ -1,0 +1,474 @@
+---
+import { impactMetrics } from '../../data/impactMetrics';
+
+const formatNumber = (value: number) =>
+  new Intl.NumberFormat('es-MX').format(value);
+
+const formatDecimal = (value: number) =>
+  new Intl.NumberFormat('es-MX', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(value);
+
+const sendPulse = impactMetrics.sendPulse;
+
+const httpSuccessRate =
+  sendPulse.templateSendRequests > 0
+    ? (sendPulse.templateSendHttp200 / sendPulse.templateSendRequests) * 100
+    : 0;
+---
+
+<section class='impact-section' id='resultados' aria-labelledby='impact-title'>
+  <div class='shell'>
+    <!-- EDITORIAL HEADER -->
+
+    <div class='impact-eyebrow eyebrow' data-reveal>
+      <span>02.C / Experiencia medible</span>
+      <span class='quiet'>Operación real / Datos 2026</span>
+    </div>
+
+    <div class='impact-intro' data-reveal>
+      <h2 class='section-display' id='impact-title'>
+        Resultados<br />
+        <span class='low'>en operación.</span>
+      </h2>
+
+      <p>
+        Más allá de la implementación técnica, estos indicadores muestran la
+        escala de procesos comerciales, integraciones y automatizaciones en los
+        que he trabajado.
+      </p>
+    </div>
+
+    <!-- HISTORICAL RESULTS -->
+
+    <div class='impact-projects'>
+      {
+        impactMetrics.projects.map((project, index) => (
+          <article class='impact-project' data-reveal>
+            <header class='project-heading'>
+              <span class='eyebrow'>
+                {String(index + 1).padStart(2, '0')} /{project.category}
+              </span>
+
+              <h3>{project.name}</h3>
+
+              <p>{project.period}</p>
+            </header>
+
+            <dl class='metrics-grid'>
+              {project.metrics.map((metric) => (
+                <div class='metric'>
+                  <dd>{formatNumber(metric.value)}</dd>
+                  <dt>{metric.label}</dt>
+                </div>
+              ))}
+            </dl>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class='impact-note' data-reveal>
+      Los indicadores corresponden a registros de los universos analizados. Las
+      confirmaciones de integración no equivalen necesariamente a mensajes
+      entregados, operaciones API individuales o conversiones comerciales. Las
+      categorías pueden solaparse y no deben sumarse.
+    </p>
+    <!-- AUTOMATION / HISTORICAL PERFORMANCE -->
+
+    <article
+      class='automation-section'
+      aria-labelledby='automation-title'
+      data-reveal
+    >
+      <!-- EDITORIAL HEADER -->
+
+      <header class='automation-heading'>
+        <span class='eyebrow'> 03 / Operación automatizada </span>
+
+        <h3 id='automation-title'>
+          Automatización.<br />
+          <span>Resultados comprobables.</span>
+        </h3>
+
+        <p>
+          Registros técnicos de SendPulse /
+          {sendPulse.period}
+        </p>
+      </header>
+
+      <!-- PRIMARY METRICS -->
+
+      <dl class='automation-stats automation-stats--primary'>
+        <div>
+          <dd>
+            {formatNumber(sendPulse.eventsProcessed)}
+          </dd>
+
+          <dt>Eventos de procesamiento automatizado</dt>
+        </div>
+
+        <div>
+          <dd>
+            {formatNumber(sendPulse.templateSendHttp200)}
+          </dd>
+
+          <dt>Solicitudes de envío con respuesta HTTP 200</dt>
+        </div>
+
+        <div>
+          <dd>
+            {formatDecimal(httpSuccessRate)}%
+          </dd>
+
+          <dt>
+            Respuestas HTTP 200 sobre
+            {formatNumber(sendPulse.templateSendRequests)}
+            solicitudes
+          </dt>
+        </div>
+      </dl>
+
+      <!-- PERFORMANCE METRICS -->
+
+      <div class='automation-performance'>
+        <span class='eyebrow'> Rendimiento observado / API </span>
+
+        <dl class='automation-stats automation-stats--secondary'>
+          <div>
+            <dd>
+              {formatDecimal(sendPulse.responseMedianSeconds)} s
+            </dd>
+
+            <dt>Mediana de respuesta</dt>
+          </div>
+
+          <div>
+            <dd>
+              {formatDecimal(sendPulse.responseP95Seconds)} s
+            </dd>
+
+            <dt>Percentil 95 de respuesta</dt>
+          </div>
+        </dl>
+      </div>
+
+      <!-- METHODOLOGY -->
+
+      <p class='automation-note'>
+        Indicadores obtenidos de registros operativos entre agosto y noviembre
+        de 2026. Los eventos de procesamiento no representan contactos únicos.
+        Las respuestas HTTP 200 corresponden a solicitudes de envío aceptadas
+        por la API y no acreditan la entrega o lectura de mensajes. Los tiempos
+        corresponden a respuestas de API.
+      </p>
+    </article>
+  </div>
+</section>
+
+<style>
+  .impact-section {
+    padding: clamp(95px, 10vw, 150px) 0;
+    background: var(--paper-2);
+    color: var(--ink);
+  }
+
+  /* EDITORIAL HEADER */
+
+  .impact-eyebrow {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    padding-top: 22px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .impact-intro {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 8%;
+    align-items: end;
+    margin: 80px 0 100px;
+  }
+
+  .impact-intro .section-display {
+    font-size: clamp(52px, 6.6vw, 100px);
+  }
+
+  .impact-intro p {
+    max-width: 440px;
+    margin: 0 0 8px;
+    font-size: clamp(17px, 1.6vw, 22px);
+    font-weight: 300;
+    line-height: 1.55;
+    letter-spacing: -0.025em;
+  }
+
+  /* PROJECTS */
+
+  .impact-project {
+    padding: 38px 0 55px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .project-heading {
+    margin-bottom: 35px;
+  }
+
+  .project-heading h3 {
+    margin: 16px 0 8px;
+    font-size: clamp(27px, 3vw, 42px);
+    font-weight: 400;
+    letter-spacing: -0.055em;
+  }
+
+  .project-heading p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 30px;
+    margin: 0;
+  }
+
+  .metric {
+    min-width: 0;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .metric dd {
+    margin: 0 0 12px;
+    font-size: clamp(39px, 5vw, 72px);
+    font-weight: 900;
+    letter-spacing: -0.085em;
+    line-height: 1;
+  }
+
+  .metric dt {
+    max-width: 245px;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: #666;
+  }
+
+  .impact-note {
+    max-width: 780px;
+    margin: 10px 0 100px;
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+
+  /* AUTOMATION / HISTORICAL PERFORMANCE */
+
+  .automation-section {
+    padding: clamp(30px, 5vw, 65px);
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .automation-heading h3 {
+    margin: 35px 0 18px;
+    font-size: clamp(36px, 4vw, 60px);
+    line-height: 1.08;
+    letter-spacing: -0.07em;
+    font-weight: 900;
+  }
+
+  .automation-heading h3 span {
+    font-weight: 300;
+  }
+
+  .automation-heading p {
+    margin: 0;
+    font-size: 13px;
+    color: #cececa;
+  }
+
+  /* HISTORICAL METRICS */
+
+  .automation-stats {
+    display: grid;
+    gap: clamp(24px, 3vw, 45px);
+
+    margin: 0;
+  }
+
+  .automation-stats--primary {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    margin-top: 65px;
+  }
+
+  .automation-stats > div {
+    min-width: 0;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #777;
+  }
+
+  .automation-stats dd {
+    margin: 0 0 16px;
+
+    font-variant-numeric: tabular-nums;
+
+    line-height: 1;
+    letter-spacing: -0.075em;
+  }
+
+  .automation-stats--primary dd {
+    font-size: clamp(35px, 4.7vw, 70px);
+    font-weight: 900;
+  }
+
+  .automation-stats dt {
+    max-width: 260px;
+
+    font-size: 12px;
+    font-weight: 300;
+
+    line-height: 1.6;
+
+    color: #cececa;
+  }
+
+  /* API PERFORMANCE */
+
+  .automation-performance {
+    margin-top: 65px;
+    padding-top: 28px;
+
+    border-top: 1px solid #777;
+  }
+
+  .automation-performance > .eyebrow {
+    color: #cececa;
+  }
+
+  .automation-stats--secondary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    margin-top: 35px;
+  }
+
+  .automation-stats--secondary dd {
+    font-size: clamp(30px, 3vw, 46px);
+    font-weight: 300;
+  }
+
+  .automation-stats--secondary > div {
+    border-top-color: #666;
+  }
+
+  /* METHODOLOGY */
+
+  .automation-note {
+    max-width: 850px;
+
+    margin: 65px 0 0;
+    padding-top: 22px;
+
+    border-top: 1px solid #777;
+
+    font-size: 11px;
+    font-weight: 300;
+
+    line-height: 1.75;
+
+    color: #cececa;
+  }
+
+  /* RESPONSIVE */
+
+  @media (max-width: 980px) {
+    .impact-intro {
+      grid-template-columns: 1fr;
+      gap: 35px;
+      margin: 65px 0 75px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .automation-stats--primary {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .automation-stats--primary dd {
+      font-size: clamp(42px, 7vw, 65px);
+    }
+  }
+
+  @media (max-width: 780px) {
+    .impact-section {
+      padding: 85px 0;
+    }
+
+    .impact-eyebrow .quiet {
+      display: none;
+    }
+
+    .metrics-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px 20px;
+    }
+
+    .impact-note {
+      margin-bottom: 75px;
+    }
+
+    .automation-stats--secondary {
+      gap: 22px;
+    }
+
+    .automation-performance {
+      margin-top: 55px;
+    }
+
+    .automation-note {
+      margin-top: 50px;
+    }
+  }
+
+  @media (max-width: 450px) {
+    .impact-intro .section-display {
+      font-size: clamp(37px, 10vw, 52px);
+    }
+
+    .metrics-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .metric dd {
+      font-size: 55px;
+    }
+
+    .automation-section {
+      padding: 28px 22px;
+    }
+
+    .automation-stats--primary dd {
+      font-size: clamp(39px, 11vw, 55px);
+    }
+
+    .automation-stats--secondary {
+      grid-template-columns: 1fr;
+    }
+
+    .automation-stats--secondary dd {
+      font-size: 38px;
+    }
+
+    .automation-performance {
+      margin-top: 45px;
+    }
+  }
+</style>

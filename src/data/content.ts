@@ -39,11 +39,12 @@ export const technologyGroups = [
     tags: [
       'HTML',
       'CSS',
-      'JavaScript',
       'React',
       'PHP',
+      'JavaScript',
       'MySQL',
-      'Astro',
+      'Astro',      
+      'TypeScript',
       'Git',
     ],
   },
@@ -59,6 +60,7 @@ export const technologyGroups = [
       'Google Marketing Platform',
       'Meta Business Platform',
       'N8N',
+      'Zapier',
     ],
   },
   {

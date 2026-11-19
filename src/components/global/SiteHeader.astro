@@ -22,14 +22,7 @@ import { navigation } from '../../data/site';
         ))
       }
     </nav>
-    <button
-      class='menu-toggle'
-      id='menu-toggle'
-      type='button'
-      aria-label='Abrir menú'
-      aria-controls='nav-links'
-      aria-expanded='false'><span></span><span></span></button
-    >
+    
   </div>
   <div class='top-progress' id='top-progress' aria-hidden='true'></div>
 </header>
@@ -154,47 +147,21 @@ import { navigation } from '../../data/site';
     }
   }
   @media (max-width: 780px) {
-    .nav-inner {
-      height: 70px;
-    }
-    .brand-mark {
-      width: 34px;
-      height: 34px;
-    }
-    .menu-toggle {
-      display: block;
-    }
-    .nav-links {
-      position: absolute;
-      background: var(--paper);
-      top: 70px;
-      left: 0;
-      right: 0;
-      padding: 25px var(--gutter) 35px;
-      border-bottom: 1px solid var(--rule);
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-8px);
-      transition:
-        opacity 0.2s,
-        transform 0.2s,
-        visibility 0.2s;
-    }
-    .nav-links.open {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-    .nav-link {
-      font-size: 20px;
-      padding: 15px 0;
-      border-bottom: 1px solid var(--rule);
-    }
+
+  .nav-inner {
+    height: 70px;
   }
+
+  .brand-mark {
+    width: 34px;
+    height: 34px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+}
   @media (max-width: 450px) {
     .brand-words {
       font-size: 10px;

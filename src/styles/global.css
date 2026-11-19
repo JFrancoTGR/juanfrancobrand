@@ -18,7 +18,7 @@
 }
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 110px;
+  scroll-padding-top: 70px;
 }
 body {
   margin: 0;
@@ -98,6 +98,7 @@ button:hover .arrow {
   place-items: center;
   width: 36px;
   height: 36px;
+  flex-shrink: 0; /* Nuevo */
   border: 1px solid var(--rule);
   border-radius: 50%;
   font-size: 11px;
@@ -147,9 +148,19 @@ button:hover .arrow {
 @media (max-width: 780px) {
   :root {
     --gutter: 23px;
+    --mobile-rail-width: 48px;
   }
   html {
     scroll-padding-top: 70px;
+  }
+  main,
+  .site-footer {
+    margin-left: var(--mobile-rail-width);
+  }
+
+  html.mobile-nav-expanded,
+  html.mobile-nav-expanded body {
+    overflow: hidden;
   }
   .chapter {
     padding-top: 90px;
